@@ -14,11 +14,12 @@ datasource db {
 }
 
 model Users {
-  id String @id @default(cuid())
-  email String @unique
-  password String
-  birthDate DateTime 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now())
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  birthDate DateTime? @map("birth_date")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @default(now()) @map("updated_at")
+
   @@map("users")
 }
