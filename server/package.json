@@ -6,10 +6,12 @@
     "dev": "bun run --watch src/server.ts"
   },
   "dependencies": {
-    "elysia": "latest"
+    "elysia": "latest",
+    "prisma": "^6.3.1"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "bun-types": "latest",
+    "envalid": "^8.0.0"
   },
   "module": "src/server.js"
 }
