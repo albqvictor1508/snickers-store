@@ -1,0 +1,14 @@
+name: snickers-store:0.0.1
+
+services:
+  pg: 
+    container-name: snickers-store-pg
+    ports:
+      - 5433:5432
+    env_file:
+      - ./server/.env
+    volumes:
+      - pg-volume:/var/lib/postgresql/data
+
+volumes:
+  pg-volume:
