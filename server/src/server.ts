@@ -1,6 +1,8 @@
-import { Elysia } from "elysia";
+import { Elysia, t } from "elysia";
 import { loadRoutes } from "./utils/load-routes";
 import swagger from "@elysiajs/swagger";
+import jwt from "@elysiajs/jwt";
+import { env } from "./utils/env";
 
 export const app = new Elysia().use(
 	swagger({
@@ -8,8 +10,18 @@ export const app = new Elysia().use(
 		documentation: { info: { title: "Snickers Store", version: "0.0.1" } },
 		autoDarkMode: true,
 	}),
-);
+)
+.use(jwt({
+	name: "jwt",
+	schema: t.Object({
+		id: t.String(),
+		email: t.String({format: "email"})
+	}),
+	secret: env.JWT_SECRET
+}))
 
 await loadRoutes();
 
-app.listen(3000);
+app.listen(3000, () => {
+	console.log("HTTP Server running!")
+});

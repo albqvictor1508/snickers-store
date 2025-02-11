@@ -6,5 +6,6 @@ export const env = cleanEnv(process.env, {
     POSTGRES_PASSWORD: str(),
     POSTGRES_DB: str(),
     MY_GMAIL: email(),
-    MY_GMAIL_PASSWORD: str()
+    MY_GMAIL_PASSWORD: str(),
+    JWT_SECRET: str()
 })
