@@ -3,6 +3,7 @@ import { loadRoutes } from "./utils/load-routes";
 import swagger from "@elysiajs/swagger";
 import jwt from "@elysiajs/jwt";
 import { env } from "./utils/env";
+import {cors} from "@elysiajs/cors"
 
 export const app = new Elysia().use(
 	swagger({
@@ -18,6 +19,9 @@ export const app = new Elysia().use(
 		email: t.String({format: "email"})
 	}),
 	secret: env.JWT_SECRET
+}))
+.use(cors({
+	origin: "*",
 }))
 
 await loadRoutes();

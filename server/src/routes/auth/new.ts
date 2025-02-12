@@ -5,7 +5,7 @@ import { db } from "../../../prisma/db";
 export const route = (elysia: typeof app) => {
 	elysia.post(
 		"/api/auth/new",
-		async ({ body, jwt }) => {
+		async ({ body, jwt, cookie }) => {
 			const { email, password, birthDate } = body;
 
 			//dar uma refinada na autenticação
