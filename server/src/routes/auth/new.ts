@@ -15,7 +15,7 @@ export const route = (elysia: typeof app) => {
 
 			const token = await jwt.sign({id: user.id, email})
 
-			//salvar o cookie no back-end ou validar se ele foi enviado na requisição pelo front
+			//salvar o cookie no back-end (função derive)
 
 			return {id: user.id, token}
 		},

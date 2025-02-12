@@ -24,6 +24,8 @@ export const app = new Elysia().use(
 	origin: "*",
 }))
 
+//criar função global com derive pra criação do cookie
+
 await loadRoutes();
 
 app.listen(3000, () => {
