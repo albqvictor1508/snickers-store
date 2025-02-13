@@ -10,14 +10,18 @@ export const route = (elysia: typeof app) => {
 
 			//dar uma refinada na autenticação
 			const user = await db.users.create({
-				data: { email, password, birthDate },
+				data: {
+					email,
+					password: await Bun.password.hash(password, "bcrypt"),
+					birthDate,
+				},
 			});
 
-			const token = await jwt.sign({id: user.id, email})
+			const token = await jwt.sign({ id: user.id, email });
 
 			//salvar o cookie no back-end (função derive)
 
-			return {id: user.id, token}
+			return { id: user.id, token };
 		},
 		{
 			body: t.Object({
