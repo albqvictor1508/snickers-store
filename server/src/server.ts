@@ -5,7 +5,7 @@ import jwt from "@elysiajs/jwt";
 import { env } from "./utils/env";
 import { cors } from "@elysiajs/cors";
 
-export const app = new Elysia()
+export const app = new Elysia({name: "Snickers Store"})
 	.use(
 		swagger({
 			path: "/docs",
@@ -28,7 +28,7 @@ export const app = new Elysia()
 			origin: "*",
 		}),
 	)
-	.derive(({ cookie }) => {});
+	//mudar o prisma pra decorate e implementar e extensão do redis
 
 //criar função global com derive pra criação do cookie
 

@@ -1,6 +1,7 @@
 import { t } from "elysia";
 import type { app } from "../../server";
 import { db } from "../../../prisma/db";
+import { handleSendEmail } from "../../services/nodemailer";
 
 export const route = (elysia: typeof app) => {
 	elysia.post(
@@ -8,24 +9,25 @@ export const route = (elysia: typeof app) => {
 		async ({ body, jwt, cookie }) => {
 			const { email, password, birthDate } = body;
 
-			//dar uma refinada na autenticação
-			const user = await db.users.create({
-				data: {
-					email,
-					password: await Bun.password.hash(password, "bcrypt"),
-					birthDate,
-				},
-			});
+			const [data] = await Promise.all([
+				await db.users.create({
+					data: {
+						email,
+						password: await Bun.password.hash(password, "bcrypt"),
+						birthDate,
+					},
+				}),
+				handleSendEmail(email)
+			])
 
-			//email
+			//criar o código pra enviar pro email
 
-			//salvando jwt em um cookie
 			cookie.snickers_store_auth.value = await jwt.sign({
-				id: user.id,
+				id: data.id,
 				email,
 			});
 
-			return { id: user.id, jwt };
+			return { id: data.id, jwt };
 		},
 		{
 			body: t.Object({
