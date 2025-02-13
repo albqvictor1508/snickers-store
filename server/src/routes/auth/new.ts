@@ -17,11 +17,15 @@ export const route = (elysia: typeof app) => {
 				},
 			});
 
-			const token = await jwt.sign({ id: user.id, email });
+			//email
 
-			//salvar o cookie no back-end (função derive)
+			//salvando jwt em um cookie
+			cookie.snickers_store_auth.value = await jwt.sign({
+				id: user.id,
+				email,
+			});
 
-			return { id: user.id, token };
+			return { id: user.id, jwt };
 		},
 		{
 			body: t.Object({
