@@ -28,11 +28,7 @@ export const app = new Elysia()
 			origin: "*",
 		}),
 	)
-	.derive(({ cookie }) => {
-		return {
-			biscoito: "era pra essa msr retornar um biscoito",
-		};
-	});
+	.derive(({ cookie }) => {});
 
 //criar função global com derive pra criação do cookie
 
