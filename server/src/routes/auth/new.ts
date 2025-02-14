@@ -17,8 +17,8 @@ export const route = (elysia: typeof app) => {
 						birthDate,
 					},
 				}),
-				handleSendEmail(email)
-			])
+				handleSendEmail({ email, subject: "Snicker Store - Create new user" }),
+			]);
 
 			//criar o código pra enviar pro email
 
