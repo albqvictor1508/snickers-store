@@ -6,19 +6,22 @@ import { CodeSchema } from "../../types/auth";
 
 const codes = {} as Record<string, CodeSchema>
 
+const ONE_SECOND_IN_MS = 1000;
+const THREE_MIN_IN_MS = 180000
+
+//checando a validade dos codigos gerados
+setInterval(() => {
+	for(const code in codes) {
+		if(Date.now() - THREE_MIN_IN_MS > codes[code].createdAt) {
+			delete codes[code]
+		}
+	}
+}, ONE_SECOND_IN_MS);
+
 export const route = (elysia: typeof app) => {
 	elysia.post(
 		"/api/auth/new",
 		async ({ body, jwt, cookie }) => {
-			const ONE_SECOND_IN_MS = 1000;
-			const THREE_MIN_IN_MS = 180000
-
-
-			setInterval(() => {
-				for(const code in codes) {
-					if(Date.now() - THREE_MIN_IN_MS > codes[code].createdAt)
-				}
-			}, THREE_MIN_IN_MS);
 
 			const { email, password, birthDate } = body;
 
