@@ -2,11 +2,24 @@ import { t } from "elysia";
 import type { app } from "../../server";
 import { db } from "../../../prisma/db";
 import { handleSendEmail } from "../../services/nodemailer";
+import { CodeSchema } from "../../types/auth";
+
+const codes = {} as Record<string, CodeSchema>
 
 export const route = (elysia: typeof app) => {
 	elysia.post(
 		"/api/auth/new",
 		async ({ body, jwt, cookie }) => {
+			const ONE_SECOND_IN_MS = 1000;
+			const THREE_MIN_IN_MS = 180000
+
+
+			setInterval(() => {
+				for(const code in codes) {
+					if(Date.now() - THREE_MIN_IN_MS > codes[code].createdAt)
+				}
+			}, THREE_MIN_IN_MS);
+
 			const { email, password, birthDate } = body;
 
 			const [data] = await Promise.all([
