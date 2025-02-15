@@ -3,6 +3,7 @@ import { faker } from "@faker-js/faker";
 
 const user1 = await db.users.create({
 	data: {
+		name: faker.person.fullName(),
 		email: faker.internet.email(),
 		password: faker.internet.password(),
 		birthDate: faker.date.birthdate(),
@@ -11,6 +12,7 @@ const user1 = await db.users.create({
 
 const user2 = await db.users.create({
 	data: {
+		name: faker.person.fullName(),
 		email: faker.internet.email(),
 		password: faker.internet.password(),
 		birthDate: faker.date.birthdate(),
@@ -19,6 +21,7 @@ const user2 = await db.users.create({
 
 const user3 = await db.users.create({
 	data: {
+		name: faker.person.fullName(),
 		email: faker.internet.email(),
 		password: faker.internet.password(),
 		birthDate: faker.date.birthdate(),

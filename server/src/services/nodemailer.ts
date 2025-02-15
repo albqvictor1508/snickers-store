@@ -1,8 +1,6 @@
-import { SendEmailSchema } from "../types/auth";
+import type { SendEmailSchema } from "../types/auth";
 import { env } from "../utils/env";
 import { createTransport } from "nodemailer";
-
-
 
 export const handleSendEmail = async ({
 	subject,

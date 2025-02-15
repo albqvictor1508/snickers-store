@@ -14,12 +14,16 @@ datasource db {
 }
 
 model Users {
-  id        String   @id @default(cuid())
-  email     String   @unique
+  id        String    @id @default(cuid())
+  name      String
+  phone     String?
+  email     String    @unique
   password  String
-  birthDate DateTime? @map("birth_date")
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @default(now()) @map("updated_at")
+  birthDate DateTime @map("birth_date") //required pra verificar se é de maior 
+  createdAt DateTime  @default(now()) @map("created_at")
+  updatedAt DateTime  @default(now()) @map("updated_at")
 
   @@map("users")
 }
+
+// ver como vou salvar o endereço do user

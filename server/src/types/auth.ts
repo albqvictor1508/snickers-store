@@ -5,12 +5,12 @@ export type SendEmailSchema = {
 	email: string;
 };
 
-
 export type CodeSchema = {
 	name: string;
 	email: string;
 	code: string;
+	password: string;
 	phone?: string;
-	birthDate: string;
+	birthDate: Date;
 	createdAt: number;
-}
+};

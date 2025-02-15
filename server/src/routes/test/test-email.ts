@@ -6,7 +6,11 @@ export const route = (elysia: typeof app) => {
 	elysia.post(
 		"/api/test/email",
 		async ({ body: { email } }) => {
-			handleSendEmail(email);
+			handleSendEmail({
+				email,
+				subject: "Snickers Store | Test email",
+				text: "Testando o email aqui paizão",
+			});
 
 			return { msg: "email sended!" };
 		},
