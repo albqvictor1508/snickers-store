@@ -14,8 +14,9 @@ export const handleSendEmail = async ({
 
 	try {
 		const transport = createTransport({
-			host: "smtp.gmail.com",
-			port: 0,
+			host: env.MAIL_HOST,
+			service: env.MAIL_SERVICE,
+			port: 465,
 			secure: true, //true pra 465 e false pra qualquer outra porta (ta nas docs do nodemailer)
 			auth: {
 				user: env.MY_GMAIL,
@@ -35,5 +36,6 @@ export const handleSendEmail = async ({
 		});
 	} catch (error) {
 		console.log(error);
+		return error;
 	}
 };

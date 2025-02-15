@@ -1,9 +1,10 @@
 import type { app } from "../../server";
 
 export const route = (elysia: typeof app) => {
-	elysia.post("/api/auth/bye", async ({ biscoito, headers }) => {
+	elysia.post("/api/auth/bye", async ({ jwt }) => {
 		return {
-			cookieValue: biscoito,
+			teste: "teste",
+			jwt,
 		};
 	});
 };

@@ -1,6 +1,8 @@
 import { db } from "./db";
 import { faker } from "@faker-js/faker";
 
+await db.users.deleteMany();
+
 const user1 = await db.users.create({
 	data: {
 		name: faker.person.fullName(),

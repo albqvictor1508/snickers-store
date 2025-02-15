@@ -23,14 +23,14 @@ export const route = (elysia: typeof app) => {
 		"/api/auth/new",
 		async ({ body, jwt, cookie }) => {
 			if ("code" in body) {
-				//jwt ta vindo colocado no cookie, o nodemailer frequentemente ta bugando a conexão
+				//jwt ta sendo colocado no cookie, o nodemailer frequentemente ta bugando a conexão
 
 				const setting = codes[body.email]; //busca os dados enviados na primeira requisição, pro usuário n ter q enviar dnv
 
 				const { name, email, password, birthDate, phone } = setting;
 
+				//já que o código é salvo no setting e enviado dps no body, era mto simples validar ele fdp
 				if (setting.code !== body.code)
-					//já que o código é salvo no setting e enviado dps no body, era mto simples validar ele fdp
 					return error("Bad Request", "invalid code");
 
 				const [data] = await Promise.all([
@@ -64,7 +64,7 @@ export const route = (elysia: typeof app) => {
 			});
 
 			if (isUserAlreadyRegistered)
-				return error("Bad Request", "ja ta resgistrado seu msr");
+				return error("Bad Request", "ja ta registrado seu msr");
 
 			if (codes[email]) return error("Bad Request", "ja ta logado paizão");
 

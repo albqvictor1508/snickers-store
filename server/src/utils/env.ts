@@ -9,4 +9,6 @@ export const env = cleanEnv(process.env, {
 	MY_GMAIL_PASSWORD: str(),
 	JWT_SECRET: str(),
 	GMAIL_PORT: str(),
+	MAIL_HOST: str(),
+	MAIL_SERVICE: str(),
 });
