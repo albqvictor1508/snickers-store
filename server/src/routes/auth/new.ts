@@ -23,11 +23,15 @@ export const route = (elysia: typeof app) => {
 		"/api/auth/new",
 		async ({ body, jwt, cookie }) => {
 			if ("code" in body) {
-				//jwt ta vendo colocado no cookie, o nodemailer frequentemente ta bugando a conexão, o código n ta validando
+				//jwt ta vindo colocado no cookie, o nodemailer frequentemente ta bugando a conexão
 
 				const setting = codes[body.email]; //busca os dados enviados na primeira requisição, pro usuário n ter q enviar dnv
 
 				const { name, email, password, birthDate, phone } = setting;
+
+				if (setting.code !== body.code)
+					//já que o código é salvo no setting e enviado dps no body, era mto simples validar ele fdp
+					return error("Bad Request", "invalid code");
 
 				const [data] = await Promise.all([
 					await db.users.create({
@@ -44,8 +48,6 @@ export const route = (elysia: typeof app) => {
 						subject: "Snicker Store - Seja bem vindo!",
 					}),
 				]);
-
-				//criar o código pra enviar pro email
 
 				cookie.snickers_store_auth.value = await jwt.sign({
 					id: data.id,
@@ -79,6 +81,7 @@ export const route = (elysia: typeof app) => {
 				text: generatedCode,
 			});
 
+			//esse código gerado vai ser buscado pelo email na variável setting dentro daquele if, salvando o código gerado e o body do user
 			codes[email] = {
 				...body,
 				code: generatedCode,
