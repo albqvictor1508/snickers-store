@@ -23,7 +23,7 @@ export const route = (elysia: typeof app) => {
 		"/api/auth/new",
 		async ({ body, jwt, cookie }) => {
 			if ("code" in body) {
-				//ta demorando mto pra criar o usuário, não tá enviando o segundo email, não ta validando o código
+				//jwt ta vendo colocado no cookie, o nodemailer frequentemente ta bugando a conexão, o código n ta validando
 
 				const setting = codes[body.email]; //busca os dados enviados na primeira requisição, pro usuário n ter q enviar dnv
 
@@ -50,7 +50,7 @@ export const route = (elysia: typeof app) => {
 					email,
 				});
 
-				return { id: data.id, jwt };
+				return { id: data.id, cookie: cookie.snickers_store_auth.value };
 			}
 
 			const { email } = body;
