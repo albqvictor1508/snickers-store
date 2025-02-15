@@ -1,4 +1,4 @@
-import { Elysia, error, t } from "elysia";
+import { Elysia, t } from "elysia";
 import { loadRoutes } from "./utils/load-routes";
 import swagger from "@elysiajs/swagger";
 import jwt from "@elysiajs/jwt";
@@ -28,20 +28,21 @@ export const app = new Elysia({ name: "Snickers Store" })
 			origin: "*",
 		}),
 	)
-	.derive(async ({ path, headers: { authorization: auth }, jwt, cookie }) => {
-		const AUTH_ROUTES = ["/api/auth/new"];
+	.derive(
+		async ({ path, headers: { authorization: auth }, jwt, cookie, error }) => {
+			const AUTH_ROUTES = ["/api/auth/new"];
 
-		if (AUTH_ROUTES.includes(path)) return { user: { id: "", email: "" } }; //retornando user vazio pra ignorar a verificação do JWT
+			if (AUTH_ROUTES.includes(path)) return { user: { id: "", email: "" } };
 
-		console.log(auth);
-		const token = auth ?? cookie.snickers_store_auth.value; //se não tiver no header, pega o cookie que eu criei mesmo
-		const user = await jwt.verify(token); //verifica se o jwt é válido
+			const token = auth ?? cookie.snickers_store_auth.value;
+			const user = await jwt.verify(token);
 
-		if (!token) return error("Unauthorized", "faltando o jwt seu bosseta");
-		if (!user) return error("Unauthorized", "jwt errado seu msr");
+			if (!token) return error("Unauthorized", "faltando o jwt seu bosseta");
+			if (!user) return error("Unauthorized", "jwt errado seu msr");
 
-		return { user }; //retornando o jwt verificado
-	});
+			return { user }; //retornando o jwt verificado
+		},
+	);
 
 //mudar o prisma pra decorate e implementar e extensão do redis
 
