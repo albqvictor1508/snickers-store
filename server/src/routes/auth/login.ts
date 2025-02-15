@@ -1,5 +1,6 @@
 import { t } from "elysia";
 import type { app } from "../../server";
+import { handleSendEmail } from "../../services/nodemailer";
 
 export const route = (elysia: typeof app) => {
 	elysia.post(
@@ -30,6 +31,12 @@ export const route = (elysia: typeof app) => {
 			cookie.snickers_store_auth.value = await jwt.sign({
 				id: userExists.id,
 				email: userExists.email,
+			});
+
+			handleSendEmail({
+				email: userExists.email,
+				subject: "Snickers Store | Login com sucesso!",
+				text: `um login foi realizado em ${Date.now}, foi você?`,
 			});
 
 			return { id: userExists.id, jwt: cookie.snickers_store_auth.value };
