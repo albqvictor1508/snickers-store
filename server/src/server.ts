@@ -21,6 +21,7 @@ export const app = new Elysia({ name: "Snickers Store" })
 				email: t.String({ format: "email" }),
 			}),
 			secret: env.JWT_SECRET,
+			exp: "1d",
 		}),
 	)
 	.use(
@@ -30,7 +31,7 @@ export const app = new Elysia({ name: "Snickers Store" })
 	)
 	.derive(
 		async ({ path, headers: { authorization: auth }, jwt, cookie, error }) => {
-			const AUTH_ROUTES = ["/api/auth/new"];
+			const AUTH_ROUTES = ["/api/auth/new", "/api/auth/login"];
 
 			if (AUTH_ROUTES.includes(path)) return { user: { id: "", email: "" } };
 
