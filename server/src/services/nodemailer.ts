@@ -21,6 +21,9 @@ export const handleSendEmail = async ({
 				user: env.MY_GMAIL,
 				pass: env.MY_GMAIL_PASSWORD,
 			},
+			tls: {
+				rejectUnauthorized: false,
+			},
 		});
 
 		await transport.sendMail({

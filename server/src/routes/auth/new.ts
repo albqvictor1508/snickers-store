@@ -28,11 +28,13 @@ export const route = (elysia: typeof app) => {
 				const setting = codes[body.email]; //busca os dados enviados na primeira requisição, pro usuário n ter q enviar dnv
 
 				const { name, email, password, birthDate, phone } = setting;
+
 				const [data] = await Promise.all([
 					await db.users.create({
 						data: {
 							name,
 							email,
+							phone,
 							password: await Bun.password.hash(password, "bcrypt"),
 							birthDate,
 						},
