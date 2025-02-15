@@ -1,14 +1,13 @@
 import { t } from "elysia";
 import type { app } from "../../server";
-import { db } from "../../../prisma/db";
 
 export const route = (elysia: typeof app) => {
 	elysia.post(
 		"/api/auth/login",
-		async ({ body, error, cookie, jwt }) => {
+		async ({ prisma, body, error, cookie, jwt }) => {
 			const { email, password } = body;
 
-			const userExists = await db.users.findFirst({
+			const userExists = await prisma.users.findFirst({
 				where: {
 					email,
 				},

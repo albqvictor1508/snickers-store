@@ -4,8 +4,10 @@ import swagger from "@elysiajs/swagger";
 import jwt from "@elysiajs/jwt";
 import { env } from "./utils/env";
 import { cors } from "@elysiajs/cors";
+import { PrismaClient } from "@prisma/client";
 
 export const app = new Elysia({ name: "Snickers Store" })
+	.decorate("prisma", new PrismaClient({ log: ["warn", "error"] }))
 	.use(
 		swagger({
 			path: "/docs",

@@ -1,6 +1,5 @@
 import { error, t } from "elysia";
 import type { app } from "../../server";
-import { db } from "../../../prisma/db";
 import { handleSendEmail } from "../../services/nodemailer";
 import type { CodeSchema } from "../../types/auth";
 
@@ -21,10 +20,8 @@ setInterval(() => {
 export const route = (elysia: typeof app) => {
 	elysia.post(
 		"/api/auth/new",
-		async ({ body, jwt, cookie }) => {
+		async ({ prisma, body, jwt, cookie }) => {
 			if ("code" in body) {
-				//jwt ta sendo colocado no cookie, o nodemailer frequentemente ta bugando a conexão
-
 				const setting = codes[body.email]; //busca os dados enviados na primeira requisição, pro usuário n ter q enviar dnv
 
 				const { name, email, password, birthDate, phone } = setting;
@@ -34,7 +31,7 @@ export const route = (elysia: typeof app) => {
 					return error("Bad Request", "invalid code");
 
 				const [data] = await Promise.all([
-					await db.users.create({
+					await prisma.users.create({
 						data: {
 							name,
 							email,
@@ -59,7 +56,7 @@ export const route = (elysia: typeof app) => {
 
 			const { email } = body;
 
-			const isUserAlreadyRegistered = await db.users.findFirst({
+			const isUserAlreadyRegistered = await prisma.users.findFirst({
 				where: { email },
 			});
 
@@ -67,8 +64,6 @@ export const route = (elysia: typeof app) => {
 				return error("Bad Request", "ja ta registrado seu msr");
 
 			if (codes[email]) return error("Bad Request", "ja ta logado paizão");
-
-			//criar o código, enviar o email com o código e armazenar o código dos usuários por 3 min
 
 			const generatedCode = Math.random()
 				.toString(16)
