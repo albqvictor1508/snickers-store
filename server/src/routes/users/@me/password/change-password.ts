@@ -40,8 +40,14 @@ export const route = (elysia: typeof app) => {
 		},
 		{
 			body: t.Object({
-				password: t.String(),
-				repeatPassword: t.String(),
+				password: t.String({
+					pattern:
+						"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+				}),
+				repeatPassword: t.String({
+					pattern:
+						"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+				}),
 			}),
 		},
 	);

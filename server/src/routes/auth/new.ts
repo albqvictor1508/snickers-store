@@ -56,8 +56,9 @@ export const route = (elysia: typeof app) => {
 
 			const { email } = body;
 
-			const isUserAlreadyRegistered = await prisma.users.findFirst({
+			const isUserAlreadyRegistered = await prisma.users.findUnique({
 				where: { email },
+				select: { id: true },
 			});
 
 			if (isUserAlreadyRegistered)
@@ -89,8 +90,17 @@ export const route = (elysia: typeof app) => {
 			body: t.Object({
 				name: t.String(),
 				email: t.String({ format: "email" }),
+				phone: t.Optional(
+					t.String({
+						pattern:
+							"^(?:\\+?(\\d{1,3}))?[-. (]*(\\d{3})[-. )]*(\\d{3})[-. ]*(\\d{4})(?: *x(\\d+))?$",
+					}),
+				),
 				code: t.Optional(t.String()),
-				password: t.String(),
+				password: t.String({
+					pattern:
+						"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+				}),
 				birthDate: t.Date(),
 			}),
 		},

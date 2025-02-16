@@ -44,7 +44,10 @@ export const route = (elysia: typeof app) => {
 		{
 			body: t.Object({
 				email: t.String({ format: "email" }),
-				password: t.String(),
+				password: t.String({
+					pattern:
+						"^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&#])[A-Za-z\\d@$!%*?&#]{8,}$",
+				}),
 			}),
 		},
 	);
