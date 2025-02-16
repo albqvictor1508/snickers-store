@@ -8,10 +8,11 @@ export const route = (elysia: typeof app) => {
 		async ({ body, prisma, error }) => {
 			const { email } = body;
 
-			const isUserAlreadyRegistered = await prisma.users.findFirst({
+			const isUserAlreadyRegistered = await prisma.users.findUnique({
 				where: {
 					email,
 				},
+				select: { id: true },
 			});
 
 			if (!isUserAlreadyRegistered)
