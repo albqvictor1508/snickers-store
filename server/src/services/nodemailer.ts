@@ -28,7 +28,7 @@ export const handleSendEmail = async ({
 		});
 
 		await transport.sendMail({
-			from: `Victor Albuquerque <${env.MY_GMAIL}>`,
+			from: `Fluxify <${env.MY_GMAIL}>`,
 			to: email,
 			subject,
 			html,

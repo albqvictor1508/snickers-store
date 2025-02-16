@@ -20,7 +20,7 @@ export const route = (elysia: typeof app) => {
 
 			handleSendEmail({
 				email,
-				subject: "Snickers Store | Recupere sua senha",
+				subject: "Fluxify | Recupere sua senha",
 				html: `<a href='http://localhost:3000/api/@me/password/change/${isUserAlreadyRegistered.id}'><button>Recuperar senha</button></a>`,
 			});
 		},

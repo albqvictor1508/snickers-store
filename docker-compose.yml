@@ -1,9 +1,9 @@
-name: snickers-store:0.0.1
+name: fluxify:0.0.1
 
 services:
   pg:
     image: bitnami/postgresql
-    container_name: snickers-store-pg
+    container_name: fluxify-pg
     ports:
       - 5433:5432
     env_file:
@@ -13,7 +13,7 @@ services:
   
   redis:
     image: redis
-    container_name: snickers-store-redis
+    container_name: fluxify-redis
     ports:
       - 6379:6379
 

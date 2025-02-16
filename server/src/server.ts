@@ -6,12 +6,12 @@ import { env } from "./utils/env";
 import { cors } from "@elysiajs/cors";
 import { PrismaClient } from "@prisma/client";
 
-export const app = new Elysia({ name: "Snickers Store" })
-	.decorate("prisma", new PrismaClient({ log: ["warn", "error"] }))
+export const app = new Elysia({ name: "Fluxify" })
+	.decorate("prisma", new PrismaClient({ log: ["warn", "error", "query"] }))
 	.use(
 		swagger({
 			path: "/docs",
-			documentation: { info: { title: "Snickers Store", version: "0.0.1" } },
+			documentation: { info: { title: "Fluxify", version: "0.0.1" } },
 			autoDarkMode: true,
 		}),
 	)

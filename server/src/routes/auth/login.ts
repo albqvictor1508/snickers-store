@@ -35,7 +35,7 @@ export const route = (elysia: typeof app) => {
 
 			handleSendEmail({
 				email: userExists.email,
-				subject: "Snickers Store | Login com sucesso!",
+				subject: "Fluxify | Login com sucesso!",
 				text: `um login foi realizado em ${Date.now}, foi você?`,
 			});
 

@@ -42,7 +42,7 @@ export const route = (elysia: typeof app) => {
 					}),
 					handleSendEmail({
 						email,
-						subject: "Snicker Store - Seja bem vindo!",
+						subject: "Fluxify - Seja bem vindo!",
 					}),
 				]);
 
@@ -72,7 +72,7 @@ export const route = (elysia: typeof app) => {
 
 			handleSendEmail({
 				email,
-				subject: "Snickers Store - Aqui está o seu código!",
+				subject: "Fluxify - Aqui está o seu código!",
 				text: generatedCode,
 			});
 

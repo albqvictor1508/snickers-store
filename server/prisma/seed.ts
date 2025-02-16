@@ -1,9 +1,11 @@
-import { db } from "./db";
 import { faker } from "@faker-js/faker";
+import { PrismaClient } from "@prisma/client";
 
-await db.users.deleteMany();
+const prisma = new PrismaClient({ log: ["warn", "error", "query"] });
 
-const user1 = await db.users.create({
+await prisma.users.deleteMany();
+
+const user1 = await prisma.users.create({
 	data: {
 		name: faker.person.fullName(),
 		email: faker.internet.email(),
@@ -12,7 +14,7 @@ const user1 = await db.users.create({
 	},
 });
 
-const user2 = await db.users.create({
+const user2 = await prisma.users.create({
 	data: {
 		name: faker.person.fullName(),
 		email: faker.internet.email(),
@@ -21,7 +23,7 @@ const user2 = await db.users.create({
 	},
 });
 
-const user3 = await db.users.create({
+const user3 = await prisma.users.create({
 	data: {
 		name: faker.person.fullName(),
 		email: faker.internet.email(),
